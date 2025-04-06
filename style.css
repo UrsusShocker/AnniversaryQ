@@ -1,0 +1,414 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400&display=swap');
+
+:root {
+    --primary-color: #e91e63;
+    --secondary-color: #9c27b0;
+    --light-color: #f8bbd0;
+    --text-color: #fff;
+    --box-bg: rgba(255, 255, 255, 0.15);
+    --box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --correct-color: #4caf50;
+    --incorrect-color: #f44336;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    overflow: hidden;
+    position: relative;
+    background: radial-gradient(circle, #6a0dad, #e91e63, #ff4081, #9c27b0, #ff80ab);
+    background-size: 400% 400%;
+    animation: wavyGradient 10s ease-in-out infinite;
+}
+
+#background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.3);
+    user-select: none;
+    animation: float 15s linear infinite;
+}
+
+.heart::before {
+    content: '❤️';
+}
+
+.container {
+    text-align: center;
+    z-index: 1;
+    padding: 20px;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4em;
+    color: #fff;
+    margin-bottom: 10px;
+    padding: 20px;
+    text-align: center;
+    animation: neonGlow 1.5s ease-in-out infinite;
+}
+
+.subtitle {
+    font-size: 1.5em;
+    color: #fff;
+    margin-bottom: 30px;
+    padding: 20px;
+    text-align: center;
+    animation: neonGlow 2s ease-in-out infinite;
+}
+
+.quiz-container {
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tulip-trigger {
+    cursor: pointer;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    padding: 20px;
+    background: var(--box-bg);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.tulip-trigger img {
+    max-width: 150px;
+    display: block;
+    margin: 0 auto 10px auto;
+    transition: transform 0.3s ease;
+}
+
+.tulip-trigger:hover img {
+    transform: scale(1.1);
+}
+
+.tulip-trigger p {
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+.question-box, .puzzle-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background: var(--box-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: var(--box-shadow);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+    z-index: 5;
+}
+
+.question-box:not(.hidden),
+.puzzle-container:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hidden {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none;
+}
+
+#question-text {
+    font-size: 1.4em;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.options-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.option {
+    padding: 15px 20px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--text-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.option:hover {
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    transform: translateY(-5px);
+}
+
+.option:hover::after {
+    content: "WANNA CLICK MI? 😈";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.option:hover::after {
+    opacity: 1;
+}
+
+
+.option.correct {
+    background: var(--correct-color);
+    animation: pulse 0.5s ease;
+}
+
+.option.incorrect {
+    background: var(--incorrect-color);
+    opacity: 0.7;
+}
+
+.feedback {
+    margin-top: 20px;
+    font-weight: bold;
+    min-height: 1.2em;
+}
+
+#puzzle-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: var(--light-color);
+}
+
+#puzzle-board {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    width: 360px;
+    height: 360px;
+    margin: 20px auto;
+    border: 2px solid var(--light-color);
+    background-color: rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.puzzle-slot {
+    border: 1px dashed rgba(255, 255, 255, 0.3);
+    background-color: transparent;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#puzzle-pieces {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    min-height: 80px;
+    padding: 10px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.puzzle-piece {
+    width: 60px;
+    height: 60px;
+    background-size: 360px 360px;
+    border: 1px solid #fff;
+    cursor: grab;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.puzzle-piece:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.puzzle-piece.placed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: default;
+    border: none;
+    box-shadow: none;
+    pointer-events: none;
+}
+
+.progress-text {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: var(--light-color);
+}
+
+#countdown-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 1.23em;
+    padding: 10px 20px;
+    border-radius: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    opacity: 0.8;
+    z-index: 999;
+    transition: opacity 0.3s ease;
+}
+
+#countdown-container:hover {
+    opacity: 1;
+}
+
+#countdown-label {
+    font-family: 'Dancing Script', cursive;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 5px;
+    display: block;
+}
+
+#countdown-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+#confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary-color);
+    opacity: 0.9;
+    border-radius: 50%;
+    animation: fall 3s linear forwards;
+}
+
+.kiss-emoji {
+    position: absolute;
+    font-size: 24px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 1;
+}
+
+@keyframes float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes wavyGradient {
+    0% { background-position: 0% 50%; filter: hue-rotate(0deg); }
+    25% { background-position: 50% 100%; filter: hue-rotate(90deg); }
+    50% { background-position: 100% 50%; filter: hue-rotate(180deg); }
+    75% { background-position: 50% 0%; filter: hue-rotate(270deg); }
+    100% { background-position: 0% 50%; filter: hue-rotate(360deg); }
+}
+
+@keyframes neonGlow {
+    0%, 100% {
+        text-shadow: 0 0 5px #ff4081, 0 0 10px #ff4081, 0 0 15px #ff4081, 0 0 20px #e91e63, 0 0 30px #6a0dad, 0 0 40px #6a0dad, 0 0 50px #ff4081;
+    }
+    50% {
+        text-shadow: 0 0 5px #ff80ab, 0 0 10px #ff80ab, 0 0 15px #ff80ab, 0 0 20px #e91e63, 0 0 30px #6a0dad, 0 0 40px #e91e63, 0 0 50px #ff80ab;
+    }
+}
+
+@keyframes fall {
+    0% { transform: translateY(-20vh) rotateZ(0deg); opacity: 1; }
+    100% { transform: translateY(120vh) rotateZ(720deg); opacity: 0; }
+}
+
+@media (max-width: 768px) {
+    .title { font-size: 2.8em; }
+    .subtitle { font-size: 1.2em; }
+    .question-box, .puzzle-container { width: 90%; padding: 20px; }
+    #question-text { font-size: 1.2em; }
+    .option { padding: 12px 15px; font-size: 0.9em; }
+    #puzzle-board { width: 300px; height: 300px; }
+    .puzzle-piece { width: 50px; height: 50px; background-size: 300px 300px; }
+}
+
+@media (max-width: 480px) {
+    .title { font-size: 2.2em; }
+    .subtitle { font-size: 1em; }
+    #puzzle-board { width: 240px; height: 240px; }
+    .puzzle-piece { width: 40px; height: 40px; background-size: 240px 240px; }
+    .options-container { grid-template-columns: 1fr; }
+    .option:hover::after { display: none; }
+    #countdown-container { font-size: 1em; padding: 8px 15px; }
+    #countdown-label { font-size: 0.8em; }
+}

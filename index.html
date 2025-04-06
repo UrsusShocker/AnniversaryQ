@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANNIVERSARY QUIZ</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div id="background-animation"></div>
+
+    <div class="container">
+        <h1 class="title">HA🅱️OI ANNIVERSAY, MI LOVELY!</h1>
+        <p class="subtitle">BETTER GET ALL OF THESE RIGHT YUNG BLUD🔫</p>
+
+        <div id="quiz-container" class="quiz-container">
+            <div id="tulip-trigger" class="tulip-trigger">
+                <img src="close-up-purple-tulips-waterdrop_1048944-8061377.webp" alt="Click the Tulips for the Next Question">
+                <p>CLICK ZA TOOLIPS Q<span id="question-number-display">1</span></p>
+            </div>
+
+            <div id="question-box" class="question-box hidden">
+                <p id="question-text"></p>
+                <div id="options-container" class="options-container">
+                </div>
+                <p id="feedback" class="feedback"></p>
+            </div>
+
+            <div id="puzzle-container" class="puzzle-container hidden">
+                <h2 id="puzzle-title">ZA PUZZLE</h2>
+                <p>COMPLETE ZA PUZZLE TO GET 1 BILLION KISSUS 💋💋💋:</p>
+                <div id="puzzle-board">
+                </div>
+                <div id="puzzle-pieces">
+                </div>
+                 <p id="puzzle-feedback" class="feedback"></p>
+            </div>
+        </div>
+         <p class="progress-text">QUESTION <span id="current-q">UNO</span> OF 15</p>
+    </div>
+
+    <div id="confetti-container"></div>
+
+    <audio id="background-music" src="akha.mp3" autoplay loop>
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="countdown-container">
+        <p id="countdown-label">💃🏿🥳COUNTDOWN FOR ZA 1 YEAR ANNIVERSARY🥳🕺🏿</p>
+        <p id="countdown-text"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
